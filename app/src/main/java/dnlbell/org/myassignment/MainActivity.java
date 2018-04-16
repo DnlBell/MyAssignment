@@ -2,10 +2,12 @@ package dnlbell.org.myassignment;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText name, email, userName;
     private Button submit;
     private Spinner month,day,year;
+    private TextView errorText;
 
 
     @Override
@@ -42,9 +45,20 @@ public class MainActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         month = findViewById(R.id.month);
         day = findViewById(R.id.day);
+        submit = findViewById(R.id.submit);
+        errorText = findViewById(R.id.error);
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //errorText.setText("Button clicked");
 
+                //TODO: validate input, bundle successful info and pass to SuccessActivity
+
+            }
+        });
 
 
     }
+
 }
