@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/defaultMargin"
         android:layout_marginStart="@dimen/defaultMargin"
+        android:layout_marginTop="@dimen/defaultMargin"
         android:text="@string/mainGreeting"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/name"
@@ -117,7 +118,7 @@
         android:layout_marginLeft="@dimen/defaultMargin"
         android:layout_marginStart="@dimen/defaultMargin"
         android:layout_marginTop="@dimen/defaultMargin"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/error" />
 
@@ -128,7 +129,7 @@
         android:layout_marginLeft="@dimen/defaultMargin"
         android:layout_marginStart="@dimen/defaultMargin"
         android:layout_marginTop="@dimen/defaultMargin"
-        android:text="Bell, Daniel 4/15/2018"
+        android:text="@string/signature"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit" />
 

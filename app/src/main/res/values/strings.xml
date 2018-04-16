@@ -5,4 +5,9 @@
     <string name="email">Email</string>
     <string name="user_name">User Name</string>
     <string name="birth_date">Birth Date</string>
+    <string name="signature">Bell, Daniel 4/15/2018</string>
+    <string name="submit">Submit</string>
+    <string name="user">User,</string>
+    <string name="successMessage">Your account has been created successfully.</string>
+    <string name="returnToForm">return</string>
 </resources>
