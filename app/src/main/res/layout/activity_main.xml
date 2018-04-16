@@ -72,7 +72,7 @@
 
     <Spinner
         android:id="@+id/month"
-        android:layout_width="75dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/defaultMargin"
         android:layout_marginStart="@dimen/defaultMargin"
@@ -83,7 +83,7 @@
 
     <Spinner
         android:id="@+id/day"
-        android:layout_width="75dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginLeft="@dimen/spinnerMargin"
         android:layout_marginStart="@dimen/spinnerMargin"
