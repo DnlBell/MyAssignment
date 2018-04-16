@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Integer> years = new ArrayList<>();
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        ArrayAdapter<Integer> adapter;
+        ArrayAdapter<Integer> yearsAdapter;
 
         for (int i = 1900; i <= thisYear; i++)
         {
@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.reverse(years);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
-
+        yearsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
         Spinner spinYear = findViewById(R.id.year);
-        spinYear.setAdapter(adapter);
+        spinYear.setAdapter(yearsAdapter);
+
 
 
     }
