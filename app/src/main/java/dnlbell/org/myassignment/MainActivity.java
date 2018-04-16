@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText name, email, userName;
     private Button submit;
-    private Spinner month,day,year;
+    private Spinner month,day;
     private TextView errorText;
 
 
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         Collections.reverse(years);
 
         yearsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
+
+
         Spinner spinYear = findViewById(R.id.year);
         spinYear.setAdapter(yearsAdapter);
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //errorText.setText("Button clicked");
+               errorText.setText(day.getSelectedItem().toString());
 
                 //TODO: validate input, bundle successful info and pass to SuccessActivity
 
@@ -60,5 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }
