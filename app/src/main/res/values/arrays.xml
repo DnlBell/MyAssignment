@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="month">
+    <string-array name="month">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -13,8 +13,8 @@
         <item>10</item>
         <item>11</item>
         <item>12</item>
-    </array>
-    <array name="day">
+    </string-array>
+    <string-array name="day">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -47,5 +47,5 @@
         <item>30</item>
         <item>31</item>
         <item>32</item>
-    </array>
+    </string-array>
 </resources>
