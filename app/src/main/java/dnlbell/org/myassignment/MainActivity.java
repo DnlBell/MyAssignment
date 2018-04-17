@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                //errorText.setText(day.getSelectedItem().toString());
 
                 //TODO: validate input, bundle successful info and pass to SuccessActivity
-                String errorList = "Error:\n";
+                String errorList = getString(R.string.Error);
                 boolean invalid;
 
                 if(name.getText().toString().length() > 32 || name.getText().toString().length() == 0) {

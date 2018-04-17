@@ -12,4 +12,5 @@
     <string name="returnToForm">return</string>
     <string name="flag">*</string>
     <string name="nameErrorMessage">Invalid Name. Name must be between 1 and 32 characters\n</string>
+    <string name="Error">Error:</string>
 </resources>
