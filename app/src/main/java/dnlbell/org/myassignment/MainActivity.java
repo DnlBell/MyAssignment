@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(userName.getText().toString().length() > 32 || userName.getText().toString().length() == 0) {
                     errorList+=getString(R.string.userNameErrorMessage);
+                    userNameFlag.setText(R.string.flag);
                     invalid = true;
-                    nameFlag.setText(R.string.flag);
                 }else {
                     nameFlag.setText(R.string.empty);
                 }
@@ -96,6 +96,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Read values from the "savedInstanceState"-object and put them in your textview
+        errorText.setText(savedInstanceState.getString("errorText"));
+        nameFlag.setText(savedInstanceState.getString("nameFlag"));
+        emailFlag.setText(savedInstanceState.getString("emailFlag"));
+        userNameFlag.setText(savedInstanceState.getString("userNameFlag"));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the values you need from your textview into "outState"-object
+        outState.putString("errorText",errorText.getText().toString());
+        outState.putString("nameFlag",nameFlag.getText().toString());
+        outState.putString("emailFlag",emailFlag.getText().toString());
+        outState.putString("userNameFlag",userNameFlag.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
 
