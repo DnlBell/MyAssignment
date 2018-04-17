@@ -12,9 +12,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private EditText name, email, userName;
     private Button submit;
     private Spinner month,day,year;
@@ -58,16 +62,33 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //errorText.setText(day.getSelectedItem().toString());
 
                 //TODO: validate input, bundle successful info and pass to SuccessActivity
                 String errorList = getString(R.string.Error);
-                boolean invalid;
+                boolean invalid = false;
+
+                Matcher emailMatcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email.getText().toString());
 
                 if(name.getText().toString().length() > 32 || name.getText().toString().length() == 0) {
                     errorList+=getString(R.string.nameErrorMessage);
                     invalid = true;
                     nameFlag.setText(R.string.flag);
+                }else {
+                    nameFlag.setText(R.string.empty);
+                }
+                if(!emailMatcher.find()){
+                    errorList+=getString(R.string.emailErrorMessage);
+                    emailFlag.setText(R.string.flag);
+                    invalid = true;
+                }else {
+                    emailFlag.setText(R.string.empty);
+                }
+                if(userName.getText().toString().length() > 32 || userName.getText().toString().length() == 0) {
+                    errorList+=getString(R.string.userNameErrorMessage);
+                    invalid = true;
+                    nameFlag.setText(R.string.flag);
+                }else {
+                    nameFlag.setText(R.string.empty);
                 }
 
 
