@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText name, email, userName;
     private Button submit;
-    private Spinner month,day;
-    private TextView errorText;
+    private Spinner month,day,year;
+    private TextView errorText,nameFlag,emailFlag,userNameFlag;
 
 
     @Override
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //getting the year array populated by having all years since 1900 listed
         ArrayList<Integer> years = new ArrayList<>();
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
         ArrayAdapter<Integer> yearsAdapter;
@@ -36,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.reverse(years);
 
+        //adapting the arrayList years into the year spinner
         yearsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
-
-
-        Spinner spinYear = findViewById(R.id.year);
-        spinYear.setAdapter(yearsAdapter);
+        year = findViewById(R.id.year);
+        year.setAdapter(yearsAdapter);
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
@@ -49,13 +49,26 @@ public class MainActivity extends AppCompatActivity {
         day = findViewById(R.id.day);
         submit = findViewById(R.id.submit);
         errorText = findViewById(R.id.error);
+        nameFlag = findViewById(R.id.nameFlag);
+        emailFlag = findViewById(R.id.emailFlag);
+        userNameFlag = findViewById(R.id.userNameFlag);
+
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               errorText.setText(day.getSelectedItem().toString());
+               //errorText.setText(day.getSelectedItem().toString());
 
                 //TODO: validate input, bundle successful info and pass to SuccessActivity
+                String errorList = "Error:\n";
+                boolean invalid;
+
+                if(name.getText().toString().length() > 32 || name.getText().toString().length() == 0) {
+                    errorList+="Invalid Name. Name must be between 1 and 32 characters\n";
+                    invalid = true;
+                    userNameFlag.setText(R.string.flag);
+                }
 
             }
         });
