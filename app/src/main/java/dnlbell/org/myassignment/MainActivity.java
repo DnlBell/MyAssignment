@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 boolean invalid;
 
                 if(name.getText().toString().length() > 32 || name.getText().toString().length() == 0) {
-                    errorList+="Invalid Name. Name must be between 1 and 32 characters\n";
+                    errorList+=getString(R.string.nameErrorMessage);
                     invalid = true;
-                   nameFlag.setText(R.string.flag);
+                    nameFlag.setText(R.string.flag);
                 }
+
 
             }
         });
