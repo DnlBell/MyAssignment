@@ -12,8 +12,10 @@
     <string name="returnToForm">return</string>
     <string name="flag">*</string>
     <string name="nameErrorMessage">Invalid Name. Name must be between 1 and 32 characters\n</string>
-    <string name="Error">Error:</string>
+    <string name="Error">Error:\n</string>
     <string name="empty" />
-    <string name="emailErrorMessage">Invalid email address</string>
-    <string name="userNameErrorMessage">Invalid user name. User name must be between 1 and 32 characters</string>
+    <string name="emailErrorMessage">Invalid email address\n</string>
+    <string name="userNameErrorMessage">Invalid user name. User name must be between 1 and 32 characters\n</string>
+    <string name="invalidDate">Invalid date\n</string>
+    <string name="invalidAge">Those under 18 years of age are not permitted\n</string>
 </resources>
