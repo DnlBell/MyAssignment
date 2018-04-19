@@ -13,11 +13,9 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -162,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static int getAge(Calendar dob) throws Exception {
+    public static int getAge(Calendar dob) {
 
         Calendar today = Calendar.getInstance();
 
