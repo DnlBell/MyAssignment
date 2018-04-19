@@ -42,7 +42,7 @@ public class MainActivityTest {
 
         String testErrorMessage = "Error:\\nThose under 18 years of age are not permitted\\n";
 
-        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
+        onView(withText(R.id.error)).check(matches(withText(testErrorMessage)));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class MainActivityTest {
 
         String testErrorMessage = "Error:\\nInvalid date\\n";
 
-        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
+        onView(withText(R.id.error)).check(matches(withText(testErrorMessage)));
 
     }
 
