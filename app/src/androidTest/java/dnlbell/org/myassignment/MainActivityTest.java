@@ -19,6 +19,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
@@ -39,7 +40,7 @@ public class MainActivityTest {
 
         String testErrorMessage = "Error:\\nThose under 18 years of age are not permitted\\n";
 
-        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
+        onView(withId(R.id.error)).check(matches(withText(containsString(testErrorMessage))));
     }
 
     @Test
@@ -61,7 +62,7 @@ public class MainActivityTest {
 
         String testErrorMessage = "Error:\\nInvalid date\\n";
 
-        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
+        onView(withId(R.id.error)).check(matches(withText(containsString(testErrorMessage))));
 
     }
 
