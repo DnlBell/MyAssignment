@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.provider.Settings.Global.getString;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -39,7 +40,9 @@ public class MainActivityTest {
 
         onView(withId(R.id.submit)).perform(click());
 
-        onView(withId(R.id.error)).check(matches(withText(R.string.invalidAge)));
+        String testErrorMessage = "Error:\\nThose under 18 years of age are not permitted\\n";
+
+        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
     }
 
     @Test
@@ -59,7 +62,9 @@ public class MainActivityTest {
 
         onView(withId(R.id.submit)).perform(click());
 
-        onView(withId(R.id.error)).check(matches(withText(R.string.invalidDate)));
+        String testErrorMessage = "Error:\\nInvalid date\\n";
+
+        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
 
     }
 
