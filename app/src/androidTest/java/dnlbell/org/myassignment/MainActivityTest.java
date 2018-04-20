@@ -31,7 +31,7 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void canVerifyGoodTextRejectsBadAge() {
+    public void RejectsBadAge() {
         onView(withId(R.id.name)).perform(typeText("Danny Bell"));
         onView(withId(R.id.email)).perform(typeText("A@A.org"));
         onView(withId(R.id.userName)).perform(typeText("Orbos"));
@@ -56,13 +56,13 @@ public class MainActivityTest {
         onData(allOf(is(instanceOf(String.class)))).atPosition(30).perform(click());
 
         onView(withId(R.id.year)).perform(click());
-        onData(allOf(is(instanceOf(String.class)))).atPosition(20).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(2000))).perform(click());
 
         onView(withId(R.id.submit)).perform(click());
 
         String testErrorMessage = "Error:\\nInvalid date\\n";
 
-        onView(withId(R.id.error)).check(matches(withText(containsString(testErrorMessage))));
+        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
 
     }
 
