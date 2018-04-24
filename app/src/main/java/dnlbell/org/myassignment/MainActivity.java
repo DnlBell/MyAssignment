@@ -3,6 +3,7 @@ package dnlbell.org.myassignment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     final static String DATE_FORMAT = "MM-dd-yyy";
-    private EditText name, email, userName;
+    private EditText name, email, userName, occupation, description;
     private Button submit;
     private Spinner month, day, year;
     private TextView errorText, nameFlag, emailFlag, userNameFlag;
@@ -55,18 +56,20 @@ public class MainActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         month = findViewById(R.id.month);
         day = findViewById(R.id.day);
+        occupation = findViewById(R.id.occupation);
+        description = findViewById(R.id.description);
         submit = findViewById(R.id.submit);
         errorText = findViewById(R.id.error);
         nameFlag = findViewById(R.id.nameFlag);
         emailFlag = findViewById(R.id.emailFlag);
         userNameFlag = findViewById(R.id.userNameFlag);
 
+        description.setMovementMethod(new ScrollingMovementMethod());
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //TODO: validate input, bundle successful info and pass to SuccessActivity
                 String date = month.getSelectedItem().toString() + "-" + day.getSelectedItem().toString() + "-" + year.getSelectedItem().toString();
                 String errorList = getString(R.string.Error);
                 boolean invalid = false;
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //check if the input has passed and return any errors if there are any.
                 if(invalid){
+                    errorText.setVisibility(View.VISIBLE);
                     errorText.setText(errorList);
                 } else {
                     goToSuccessActivity(userName.getText().toString());
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // Read values from the "savedInstanceState"-object and put them in your textview
+        // Read values from the "savedInstanceState"-object and put them in your textView
         errorText.setText(savedInstanceState.getString("errorText"));
         nameFlag.setText(savedInstanceState.getString("nameFlag"));
         emailFlag.setText(savedInstanceState.getString("emailFlag"));
@@ -193,6 +197,5 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("userName",userName);
         startActivity(intent);
     }
-
 
 }

@@ -5,9 +5,9 @@
     <string name="email">Email</string>
     <string name="user_name">User Name</string>
     <string name="birth_date">Birth Date</string>
-    <string name="signature">Bell, Daniel 4/15/2018</string>
+    <string name="signature">Bell, Daniel 4/22/2018</string>
     <string name="submit">Submit</string>
-    <string name="user">User,</string>
+    <string name="userAge">User, Age</string>
     <string name="successMessage">Your account has been created successfully.</string>
     <string name="returnToForm">return</string>
     <string name="flag">*</string>
@@ -18,4 +18,6 @@
     <string name="userNameErrorMessage">Invalid user name. User name must be between 1 and 32 characters\n</string>
     <string name="invalidDate">Invalid date\n</string>
     <string name="invalidAge">Those under 18 years of age are not permitted\n</string>
+    <string name="occupation">Occupation</string>
+    <string name="description">Describe yourself</string>
 </resources>

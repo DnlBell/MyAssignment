@@ -36,6 +36,9 @@
             android:ems="10"
             android:hint="@string/name"
             android:inputType="textPersonName"
+            android:background="@drawable/textbox"
+            android:padding="4dp"
+            android:maxLength="32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainGreeting" />
 
@@ -49,6 +52,9 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:background="@drawable/textbox"
+            android:padding="4dp"
+            android:maxLength="32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -62,6 +68,9 @@
             android:ems="10"
             android:hint="@string/user_name"
             android:inputType="textPersonName"
+            android:background="@drawable/textbox"
+            android:padding="4dp"
+            android:maxLength="32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -115,10 +124,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:layout_marginStart="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/defaultMargin"
+            android:layout_marginTop="16dp"
             android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/month" />
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <Button
             android:id="@+id/submit"
@@ -126,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:layout_marginStart="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/defaultMargin"
+            android:layout_marginTop="16dp"
             android:text="@string/submit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/error" />
@@ -146,7 +156,7 @@
             android:id="@+id/nameFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/defaultMargin"
             android:textColor="@android:color/holo_red_dark"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/mainGreeting" />
@@ -155,7 +165,7 @@
             android:id="@+id/emailFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/defaultMargin"
             android:textColor="@android:color/holo_red_dark"
             app:layout_constraintStart_toEndOf="@+id/email"
             app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -164,11 +174,45 @@
             android:id="@+id/userNameFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/defaultMargin"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/userName"
             app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <EditText
+            android:id="@+id/occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/defaultMargin"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:ems="10"
+            android:hint="@string/occupation"
+            android:inputType="textPersonName"
+            android:background="@drawable/textbox"
+            android:padding="4dp"
+            android:maxLength="32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/month" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defaultMargin"
+            android:ems="10"
+            android:hint="@string/description"
+            android:background="@drawable/textbox"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:minLines="3"
+            android:maxLines="5"
+            android:padding="4dp"
+            android:maxLength="500"
+            android:scrollbars = "vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/occupation" />
 
 
     </android.support.constraint.ConstraintLayout>
