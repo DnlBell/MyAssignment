@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SuccessActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     TextView userName;
     Button returnToForm;
@@ -15,7 +15,7 @@ public class SuccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_success);
+        setContentView(R.layout.activity_profile);
 
         Intent intent = getIntent();
 

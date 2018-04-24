@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToSuccessActivity(String userName){
-        Intent intent = new Intent(this, SuccessActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("userName",userName);
         startActivity(intent);
     }

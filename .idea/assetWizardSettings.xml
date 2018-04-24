@@ -19,7 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\dnlbe\Desktop\Google Drive\face.jpg" />
+                                      <entry key="imageAsset" value="C:\Users\Danielb\Desktop\face.png" />
+                                      <entry key="outputName" value="face" />
                                     </map>
                                   </option>
                                 </PersistentState>
