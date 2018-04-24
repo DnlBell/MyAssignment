@@ -1,0 +1,70 @@
+package dnlbell.org.myassignment;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+
+@RunWith(AndroidJUnit4.class)
+public class MainActivityTest {
+
+    @Rule
+    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Test
+    public void RejectsBadAge() {
+        onView(withId(R.id.name)).perform(typeText("Danny Bell"));
+        onView(withId(R.id.email)).perform(typeText("A@A.org"));
+        onView(withId(R.id.userName)).perform(typeText("Orbos"));
+
+        onView(withId(R.id.submit)).perform(click());
+
+        String testErrorMessage = "Error:\\nThose under 18 years of age are not permitted\\n";
+
+        onView(withId(R.id.error)).check(matches(withText(containsString(testErrorMessage))));
+    }
+
+    @Test
+    public void rejectsBadDate() {
+        onView(withId(R.id.name)).perform(typeText("Danny Bell"));
+        onView(withId(R.id.email)).perform(typeText("A@A.org"));
+        onView(withId(R.id.userName)).perform(typeText("Orbos"));
+
+        onView(withId(R.id.month)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
+
+        onView(withId(R.id.day)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(30).perform(click());
+
+        onView(withId(R.id.year)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(2000))).perform(click());
+
+        onView(withId(R.id.submit)).perform(click());
+
+        String testErrorMessage = "Error:\\nInvalid date\\n";
+
+        onView(withId(R.id.error)).check(matches(withText(testErrorMessage)));
+
+    }
+
+}
+
