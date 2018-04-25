@@ -28,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText name, email, userName, occupation, description;
     private Button submit;
     private Spinner month, day, year;
-    private TextView errorText, nameFlag, emailFlag, userNameFlag;
+    private TextView errorText, nameFlag, emailFlag, userNameFlag, occupationFlag;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         //getting the year array populated by having all years since 1900 listed
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         nameFlag = findViewById(R.id.nameFlag);
         emailFlag = findViewById(R.id.emailFlag);
         userNameFlag = findViewById(R.id.userNameFlag);
+        occupationFlag = findViewById(R.id.occupationFlag);
 
         description.setMovementMethod(new ScrollingMovementMethod());
 
@@ -115,18 +117,40 @@ public class MainActivity extends AppCompatActivity {
                     errorList += "";
                 }
 
+                if (occupation.getText().toString().length() > 32 || occupation.getText().toString().length() == 0) {
+                    errorList += getString(R.string.occupationError);
+                    invalid = true;
+                }
+                else {
+                    occupationFlag.setText("");
+                }
+
                 //check if the input has passed and return any errors if there are any.
                 if(invalid){
                     errorText.setVisibility(View.VISIBLE);
                     errorText.setText(errorList);
                 } else {
-                    goToSuccessActivity(userName.getText().toString());
-                }
+                    String stringName = userName.getText().toString();
+                    int age = getAge(birthDate);
+                    String stringOccupation = occupation.getText().toString();
+                    String stringDescription = description.getText().toString();
 
+                    name.setText("");
+                    email.setText("");
+                    userName.setText("");
+                    occupation.setText("");
+                    description.setText("");
+                    errorText.setText("");
+                    nameFlag.setText("");
+                    emailFlag.setText("");
+                    userNameFlag.setText("");
+                    occupationFlag.setText("");
+
+                    goToSuccessActivity(stringName,age,stringOccupation,stringDescription);
+                }
 
             }
         });
-
 
     }
 
@@ -138,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
         nameFlag.setText(savedInstanceState.getString("nameFlag"));
         emailFlag.setText(savedInstanceState.getString("emailFlag"));
         userNameFlag.setText(savedInstanceState.getString("userNameFlag"));
+        name.setText(savedInstanceState.getString("name"));
+        email.setText(savedInstanceState.getString("email"));
+        userName.setText(savedInstanceState.getString("userName"));
+        occupation.setText(savedInstanceState.getString("occupation"));
+        description.setText(savedInstanceState.getString("description"));
+
     }
 
     @Override
@@ -147,6 +177,11 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("nameFlag", nameFlag.getText().toString());
         outState.putString("emailFlag", emailFlag.getText().toString());
         outState.putString("userNameFlag", userNameFlag.getText().toString());
+        outState.putString("name",name.getText().toString());
+        outState.putString("email",email.getText().toString());
+        outState.putString("userName",userName.getText().toString());
+        outState.putString("occupation",occupation.getText().toString());
+        outState.putString("description",description.getText().toString());
         super.onSaveInstanceState(outState);
     }
 
@@ -192,9 +227,12 @@ public class MainActivity extends AppCompatActivity {
         return age;
     }
 
-    public void goToSuccessActivity(String userName){
+    public void goToSuccessActivity(String userName,int age, String occupation, String description){
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("userName",userName);
+        intent.putExtra("userName", userName);
+        intent.putExtra("age", age);
+        intent.putExtra("occupation", occupation);
+        intent.putExtra("description", description);
         startActivity(intent);
     }
 

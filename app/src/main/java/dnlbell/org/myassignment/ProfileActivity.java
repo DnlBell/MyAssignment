@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView userName;
+    TextView userName, occupation, description;
     Button returnToForm;
 
     @Override
@@ -20,9 +20,17 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         userName = findViewById(R.id.userName);
+        occupation = findViewById(R.id.occupation);
+        description = findViewById(R.id.description);
         returnToForm = findViewById(R.id.returnToForm);
 
-        userName.setText(intent.getStringExtra("userName"));
+        String userNameAge = intent.getStringExtra("userName") + ", " + intent.getStringExtra("age");
+
+        userName.setText(userNameAge);
+        occupation.setText(intent.getStringExtra("occupation"));
+        description.setText(intent.getStringExtra("Description"));
+
+
 
         returnToForm.setOnClickListener(new View.OnClickListener() {
             @Override

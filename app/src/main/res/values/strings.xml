@@ -8,7 +8,7 @@
     <string name="signature">Bell, Daniel 4/22/2018</string>
     <string name="submit">Submit</string>
     <string name="userAge">User, Age</string>
-    <string name="successMessage">Your account has been created successfully.</string>
+    <string name="defaultDescription">Description</string>
     <string name="returnToForm">return</string>
     <string name="flag">*</string>
     <string name="nameErrorMessage">Invalid Name. Name must be between 1 and 32 characters\n</string>
@@ -20,4 +20,5 @@
     <string name="invalidAge">Those under 18 years of age are not permitted\n</string>
     <string name="occupation">Occupation</string>
     <string name="description">Describe yourself</string>
+    <string name="occupationError">Invalid occupation. occupation must be between 1 and 32 characters\n</string>
 </resources>

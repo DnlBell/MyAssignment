@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -25,13 +26,13 @@
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/successMessage"
+            android:layout_height="@dimen/defaultMargin"
+            android:layout_marginLeft="@dimen/defaultMargin"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:text="@string/defaultDescription"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+            app:layout_constraintTop_toBottomOf="@+id/occupationIndicator" />
 
         <Button
             android:id="@+id/returnToForm"
@@ -46,15 +47,40 @@
 
         <ImageView
             android:id="@+id/profilePicture"
-            android:layout_width="match_parent"
+            android:layout_width="349dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:layout_marginRight="@dimen/defaultMargin"
             android:layout_marginTop="@dimen/defaultMargin"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
             app:srcCompat="@drawable/face" />
+
+        <ImageView
+            android:id="@+id/occupationIndicator"
+            android:layout_width="18dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+            app:srcCompat="@drawable/occupation" />
+
+        <TextView
+            android:id="@+id/occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:text="Occupation"
+            app:layout_constraintStart_toEndOf="@+id/occupationIndicator"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
 
     </android.support.constraint.ConstraintLayout>
