@@ -22,6 +22,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static dnlbell.org.myassignment.TestUtils.rotateScreen;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -72,6 +73,16 @@ public class myTests {
 
         assertEquals(errorString,viewString);
 
+    }
+
+    @Test
+    public void rotateScreenWithText() {
+
+        onView(withId(R.id.name)).perform(typeText("Daniel Bell"));
+
+        rotateScreen(activityTestRule.getActivity());
+
+        onView(withId(R.id.name)).check(matches(withText("Daniel Bell")));
     }
 
 
