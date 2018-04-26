@@ -49,6 +49,6 @@ public class myTests {
         closeSoftKeyboard();
         onView(withId(R.id.submit)).perform(click());
 
-        onView(withId(R.id.userName)).check(matches(withText("Dan, null")));
+        onView(withId(R.id.userName)).check(matches(withText("Dan, 29")));
     }
 }

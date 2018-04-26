@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView userName, occupation, description;
+    int age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +19,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        age = intent.getIntExtra("age", 0);
         userName = findViewById(R.id.userName);
         occupation = findViewById(R.id.occupation);
         description = findViewById(R.id.description);
 
-        String userNameAge = intent.getStringExtra("userName") + ", " + intent.getStringExtra("age");
+        String userNameAge = intent.getStringExtra("userName") + ", " + age;
 
         userName.setText(userNameAge);
         occupation.setText(intent.getStringExtra("occupation"));
