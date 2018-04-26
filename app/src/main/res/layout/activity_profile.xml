@@ -23,27 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/defaultMargin"
-            android:layout_marginLeft="@dimen/defaultMargin"
-            android:layout_marginStart="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/defaultMargin"
-            android:text="@string/defaultDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/occupationIndicator" />
-
-        <Button
-            android:id="@+id/returnToForm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/defaultMargin"
-            android:layout_marginStart="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/defaultMargin"
-            android:text="@string/returnToForm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <ImageView
             android:id="@+id/profilePicture"
@@ -81,6 +60,18 @@
             android:text="Occupation"
             app:layout_constraintStart_toEndOf="@+id/occupationIndicator"
             app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/defaultDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/occupationIndicator"
+            />
 
 
     </android.support.constraint.ConstraintLayout>

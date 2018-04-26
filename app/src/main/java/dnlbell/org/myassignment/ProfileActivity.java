@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView userName, occupation, description;
-    Button returnToForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,22 +21,13 @@ public class ProfileActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         occupation = findViewById(R.id.occupation);
         description = findViewById(R.id.description);
-        returnToForm = findViewById(R.id.returnToForm);
 
         String userNameAge = intent.getStringExtra("userName") + ", " + intent.getStringExtra("age");
 
         userName.setText(userNameAge);
         occupation.setText(intent.getStringExtra("occupation"));
-        description.setText(intent.getStringExtra("Description"));
+        description.setText(intent.getStringExtra("description"));
 
-
-
-        returnToForm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMainActivity();
-            }
-        });
     }
 
     public void goToMainActivity(){
