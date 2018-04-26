@@ -4,12 +4,22 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
+import static android.support.test.espresso.Espresso.onView;
+
+import android.view.View;
+import android.widget.TextView;
+
+import org.hamcrest.Matcher;
 
 import java.util.concurrent.CountDownLatch;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 
 public class TestUtils {
+
     public static void rotateScreen(Activity activity) {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         final int orientation = InstrumentationRegistry.getTargetContext()
@@ -34,5 +44,27 @@ public class TestUtils {
         } catch (InterruptedException e) {
             throw new RuntimeException("Screen rotation failed", e);
         }
+    }
+
+    public static String getText(final Matcher<View> matcher) {
+        final String[] stringHolder = { null };
+        onView(matcher).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(TextView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting text from a TextView";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                TextView tv = (TextView)view; //Save, because of check in getConstraints()
+                stringHolder[0] = tv.getText().toString();
+            }
+        });
+        return stringHolder[0];
     }
 }

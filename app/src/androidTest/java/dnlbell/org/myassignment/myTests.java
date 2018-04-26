@@ -3,6 +3,8 @@ package dnlbell.org.myassignment;
 //import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.TextView;
+import dnlbell.org.myassignment.TestUtils;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +22,8 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.AllOf.allOf;
@@ -50,6 +54,24 @@ public class myTests {
         onView(withId(R.id.submit)).perform(click());
 
         onView(withId(R.id.userName)).check(matches(withText("Dan, 29")));
+    }
+
+    @Test
+    public void submitNoData() {
+        closeSoftKeyboard();
+        onView(withId(R.id.submit)).perform(click());
+
+        String errorString = "Error:\n" +
+                             "Invalid Name. Name must be between 1 and 32 characters\n" +
+                             "Invalid email address\n" +
+                             "Invalid user name. User name must be between 1 and 32 characters\n" +
+                             "Those under 18 years of age are not permitted\n" +
+                             "Invalid occupation. occupation must be between 1 and 32 characters\n" ;
+
+        String viewString = TestUtils.getText(withId(R.id.error));
+
+        assertEquals(errorString,viewString);
+
     }
 
 
