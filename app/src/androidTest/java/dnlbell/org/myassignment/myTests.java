@@ -34,10 +34,16 @@ public class myTests {
         onView(withId(R.id.email)).perform(typeText("dan@dan.dan"));
         onView(withId(R.id.userName)).perform(typeText("Dan"));
         onView(withId(R.id.occupation)).perform(typeText("Technical Support Specialist"));
-        onView(withId(R.id.occupation)).perform(typeText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
+        onView(withId(R.id.description)).perform(typeText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
 
         onView(withId(R.id.year)).perform(click());
-        onData(allOf(is(instanceOf(String.class)),  is("2000"))).perform(click());
+        onData(allOf(is(instanceOf(Integer.class)))).atPosition(18).perform(click());
+
+        onView(withId(R.id.month)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
+
+        onView(withId(R.id.day)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
 
         onView(withId(R.id.name)).check(matches(withText("Daniel Bell")));
     }
