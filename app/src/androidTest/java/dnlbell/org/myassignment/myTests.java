@@ -72,12 +72,10 @@ public class myTests {
         String viewString = TestUtils.getText(withId(R.id.error));
 
         assertEquals(errorString,viewString);
-
     }
 
     @Test
     public void rotateScreenWithText() {
-
         onView(withId(R.id.name)).perform(typeText("Daniel Bell"));
 
         rotateScreen(activityTestRule.getActivity());
