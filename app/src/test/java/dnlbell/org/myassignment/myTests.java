@@ -1,6 +1,6 @@
 package dnlbell.org.myassignment;
 
-import android.support.test.espresso.intent.Intents;
+//import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -11,21 +11,20 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
+//import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
+//import static android.support.test.espresso.intent.Intents.intended;
+//import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+//import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
-public class mainActivityTest {
+public class myTests {
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
@@ -39,5 +38,7 @@ public class mainActivityTest {
 
         onView(withId(R.id.year)).perform(click());
         onData(allOf(is(instanceOf(String.class)),  is("2000"))).perform(click());
+
+        onView(withId(R.id.name)).check(matches(withText("Daniel Bell")));
     }
 }

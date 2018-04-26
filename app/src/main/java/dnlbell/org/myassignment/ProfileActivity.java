@@ -27,12 +27,6 @@ public class ProfileActivity extends AppCompatActivity {
         userName.setText(userNameAge);
         occupation.setText(intent.getStringExtra("occupation"));
         description.setText(intent.getStringExtra("description"));
-
-    }
-
-    public void goToMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }
 
