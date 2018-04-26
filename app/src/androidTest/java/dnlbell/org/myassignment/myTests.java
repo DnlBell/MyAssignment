@@ -30,7 +30,7 @@ public class myTests {
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void enterExpectedData(){
+    public void submitGoodData(){
         onView(withId(R.id.name)).perform(typeText("Daniel Bell"));
         onView(withId(R.id.email)).perform(typeText("dan@dan.dan"));
         onView(withId(R.id.userName)).perform(typeText("Dan"));
@@ -51,4 +51,6 @@ public class myTests {
 
         onView(withId(R.id.userName)).check(matches(withText("Dan, 29")));
     }
+
+
 }

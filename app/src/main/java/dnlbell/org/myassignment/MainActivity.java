@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 if (occupation.getText().toString().length() > 32 || occupation.getText().toString().length() == 0) {
                     errorList += getString(R.string.occupationError);
                     invalid = true;
+                    occupationFlag.setText("*");
                 }
                 else {
                     occupationFlag.setText("");
