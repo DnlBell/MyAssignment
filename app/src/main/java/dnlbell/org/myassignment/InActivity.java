@@ -5,9 +5,12 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class InActivity extends AppCompatActivity {
+
+    private TabHost myTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +25,13 @@ public class InActivity extends AppCompatActivity {
 
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setArguments(profileBundle);
+
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.inView,profileFragment, "profileFragment");
         transaction.commit();
+
     }
+
+
 }
