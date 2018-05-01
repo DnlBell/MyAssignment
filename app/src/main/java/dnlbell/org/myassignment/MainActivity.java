@@ -1,5 +1,6 @@
 package dnlbell.org.myassignment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -229,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToSuccessActivity(String userName,int age, String occupation, String description){
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, InActivity.class);
         intent.putExtra("userName", userName);
         intent.putExtra("age", age);
         intent.putExtra("occupation", occupation);

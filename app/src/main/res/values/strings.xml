@@ -21,4 +21,7 @@
     <string name="occupation">Occupation</string>
     <string name="description">Describe yourself</string>
     <string name="occupationError">Invalid occupation. occupation must be between 1 and 32 characters\n</string>
+    <string name="profile">Profile</string>
+    <string name="matches">Matches</string>
+    <string name="settings">Settings</string>
 </resources>
