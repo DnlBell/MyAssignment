@@ -14,13 +14,17 @@ public class InActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in);
 
-        Intent intent = getIntent();
+        Bundle profileBundle = new Bundle();
+        profileBundle.putString("userName",getIntent().getStringExtra("userName"));
+        profileBundle.putInt("age",getIntent().getIntExtra("age",0));
+        profileBundle.putString("occupation",getIntent().getStringExtra("occupation"));
+        profileBundle.putString("description", getIntent().getStringExtra("description"));
 
-        ProfileFragment profile = new ProfileFragment();
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setArguments(profileBundle);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.inView,profile,"profile");
+        transaction.add(R.id.inView,profileFragment, "profileFragment");
         transaction.commit();
-
     }
 }

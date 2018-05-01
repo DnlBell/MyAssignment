@@ -11,12 +11,22 @@ import android.widget.TextView;
 public class ProfileFragment extends Fragment {
 
     TextView userName, occupation, description;
-    int age;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        View profileView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        userName = profileView.findViewById(R.id.userName);
+        occupation = profileView.findViewById(R.id.occupation);
+        description = profileView.findViewById(R.id.description);
+
+        userName.setText(this.getArguments().getString("userName") + ", " + this.getArguments().getInt("age"));
+        occupation.setText(this.getArguments().getString("occupation"));
+        description.setText(this.getArguments().getString("description"));
+
+        return profileView;
     }
 
 }
