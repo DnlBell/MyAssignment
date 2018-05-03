@@ -15,6 +15,7 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 //import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 //import static android.support.test.espresso.intent.Intents.intended;
 //import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -83,5 +84,28 @@ public class myTests {
         onView(withId(R.id.name)).check(matches(withText("Daniel Bell")));
     }
 
+    @Test
+    public void lookAtTabs(){
+        onView(withId(R.id.name)).perform(typeText("Daniel Bell"));
+        onView(withId(R.id.email)).perform(typeText("dan@dan.dan"));
+        onView(withId(R.id.userName)).perform(typeText("Dan"));
+        onView(withId(R.id.occupation)).perform(typeText("Technical Support Specialist"));
+        onView(withId(R.id.description)).perform(typeText("Lorem ipsum"));
+        onView(withId(R.id.year)).perform(click());
+        onData(allOf(is(instanceOf(Integer.class)))).atPosition(29).perform(click());
 
+        onView(withId(R.id.month)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
+
+        onView(withId(R.id.day)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(2).perform(click());
+
+        closeSoftKeyboard();
+        onView(withId(R.id.submit)).perform(click());
+
+        onView(withId(R.id.userName)).check(matches(withText("Dan, 29")));
+
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+    }
 }
