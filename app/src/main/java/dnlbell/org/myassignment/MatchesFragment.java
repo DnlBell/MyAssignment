@@ -18,4 +18,5 @@ public class MatchesFragment extends Fragment {
 
         return MatchesView;
     }
+
 }
