@@ -21,8 +21,7 @@ public class MatchesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(
-                R.layout.recycler_view, container, false);
+        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -37,9 +36,9 @@ public class MatchesFragment extends Fragment {
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_card, parent, false));
-            picture = (ImageView) itemView.findViewById(R.id.card_image);
-            name = (TextView) itemView.findViewById(R.id.card_title);
-            description = (TextView) itemView.findViewById(R.id.card_text);
+            picture = itemView.findViewById(R.id.card_image);
+            name = itemView.findViewById(R.id.card_title);
+            description = itemView.findViewById(R.id.card_text);
         }
     }
 
@@ -52,9 +51,9 @@ public class MatchesFragment extends Fragment {
 
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
-            mPlaces = resources.getStringArray(R.array.places);
-            mPlaceDesc = resources.getStringArray(R.array.place_desc);
-            TypedArray a = resources.obtainTypedArray(R.array.places_picture);
+            mPlaces = resources.getStringArray(R.array.match);
+            mPlaceDesc = resources.getStringArray(R.array.match_desc);
+            TypedArray a = resources.obtainTypedArray(R.array.match_pic);
             mPlacePictures = new Drawable[a.length()];
             for (int i = 0; i < mPlacePictures.length; i++) {
                 mPlacePictures[i] = a.getDrawable(i);

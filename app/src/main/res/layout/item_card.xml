@@ -20,7 +20,7 @@ android:foreground="?attr/selectableItemBackground">
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_image_height"
         android:scaleType="centerCrop"
-        tools:src="@drawable/a" />
+        tools:src="@drawable/janedoe" />
 
     <TextView
         android:id="@+id/card_title"
