@@ -1,10 +1,10 @@
 package dnlbell.org.myassignment;
 
 //import android.support.test.espresso.intent.Intents;
+
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.TextView;
-import dnlbell.org.myassignment.TestUtils;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,22 +14,23 @@ import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-//import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static dnlbell.org.myassignment.TestUtils.rotateScreen;
+import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.Is.is;
+
+
+//import static android.support.test.espresso.action.ViewActions.scrollTo;
 //import static android.support.test.espresso.intent.Intents.intended;
 //import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 //import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static dnlbell.org.myassignment.TestUtils.rotateScreen;
-import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class myTests {
@@ -137,6 +138,33 @@ public class myTests {
         String viewString = TestUtils.getText(withId(R.id.error));
 
         assertEquals(errorString,viewString);
+
+    }
+
+    @Test
+    public void clickLike() {
+        onView(withId(R.id.name)).perform(typeText("Daniel Bell"));
+        onView(withId(R.id.email)).perform(typeText("dan@dan.dan"));
+        onView(withId(R.id.userName)).perform(typeText("Dan"));
+        onView(withId(R.id.occupation)).perform(typeText("Technical Support Specialist"));
+        onView(withId(R.id.description)).perform(typeText("Lorem ipsum"));
+
+        onView(withId(R.id.year)).perform(click());
+        onData(allOf(is(instanceOf(Integer.class)))).atPosition(29).perform(click());
+
+        onView(withId(R.id.month)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
+
+        onView(withId(R.id.day)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
+
+        closeSoftKeyboard();
+        onView(withId(R.id.submit)).perform(click());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.my_recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, TestUtils.clickChildViewWithId(R.id.like_button)));
+
+        //onView(withText("You liked Jane Doe!").inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
     }
 }
