@@ -48,5 +48,22 @@
         <item>30</item>
         <item>31</item>
     </string-array>
-
+    <string-array name="match">
+        <item>Jane Doe</item>
+        <item>Mari</item>
+        <item>Sophie</item>
+    </string-array>
+    <string-array name="match_desc">
+        <item>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
+        <item>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
+        <item>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
+    </string-array>
+    <string-array name="match_pic">
+        <item>@drawable/janedoe</item>
+        <item>@drawable/mari</item>
+        <item>@drawable/sophie</item>
+    </string-array>
 </resources>

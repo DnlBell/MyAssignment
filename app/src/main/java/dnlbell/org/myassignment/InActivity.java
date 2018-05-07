@@ -42,9 +42,6 @@ public class InActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
