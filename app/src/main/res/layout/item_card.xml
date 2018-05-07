@@ -29,30 +29,38 @@
             android:id="@+id/card_title"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/card_title_height"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="160dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/card_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
             tools:text="@string/item_title" />
 
         <TextView
             android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/card_image"
+            android:layout_margin="@dimen/defaultMargin"
+            app:layout_constraintTop_toBottomOf="@id/card_image"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/article_subheading"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="217dp"
             tools:text="@string/item_desc" />
+
+        <ImageButton
+            android:id="@+id/like_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/dark_grey"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:layout_marginRight="@dimen/defaultMargin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_text"
+            app:srcCompat="@drawable/ic_favorite_black_24dp"
+            style="?android:attr/borderlessButtonStyle"/>
 
     </android.support.constraint.ConstraintLayout>
 
