@@ -3,6 +3,9 @@ package dnlbell.org.myassignment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,10 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
-import dnlbell.org.myassignment.Model.Match;
 
 public class MatchesFragment extends Fragment {
 
@@ -80,19 +85,15 @@ public class MatchesFragment extends Fragment {
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
         private static final int LENGTH = 3;
-        private final String[] mMatches;
-        private final String[] mMatchDesc;
-        private final Drawable[] mPlacePictures;
+        private final String[] mUrl;
+        private final String[] mName;
+        private final Boolean[] mLiked;
 
-        public ContentAdapter(Context context) {
+        public ContentAdapter(Context context, ) {
             Resources resources = context.getResources();
-            mMatches = resources.getStringArray(R.array.match);
-            mMatchDesc = resources.getStringArray(R.array.match_desc);
-            TypedArray a = resources.obtainTypedArray(R.array.match_pic);
-            mPlacePictures = new Drawable[a.length()];
-            for (int i = 0; i < mPlacePictures.length; i++) {
-                mPlacePictures[i] = a.getDrawable(i);
-            }
+            mUrl = resources.getStringArray(R.array.match);
+            mName = resources.getStringArray(R.array.match_desc);
+            mLiked
             a.recycle();
         }
 
@@ -103,14 +104,26 @@ public class MatchesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.picture.setImageDrawable(mPlacePictures[position % mPlacePictures.length]);
-            holder.name.setText(mMatches[position % mMatches.length]);
-            holder.description.setText(mMatchDesc[position % mMatchDesc.length]);
+            //setup picture
+            holder.name.setText(mName[position % mName.length]);
+            //holder.picture.setImageBitmap();
         }
 
         @Override
         public int getItemCount() {
             return LENGTH;
         }
+
+        Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
+
+            HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
+            connection.setRequestProperty("User-agent","Mozilla/4.0");
+
+            connection.connect();
+            InputStream input = connection.getInputStream();
+
+            return BitmapFactory.decodeStream(input);
+        }
+
     }
 }
