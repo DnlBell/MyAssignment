@@ -13,11 +13,14 @@ import android.content.Intent;
 import java.util.ArrayList;
 import java.util.List;
 
+import dnlbell.org.myassignment.Model.Match;
+import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
+
 
 public class InActivity extends AppCompatActivity {
 
-    Bundle profileBundle;
-    ProfileFragment profileFragment;
+    private Bundle profileBundle;
+    private ProfileFragment profileFragment;
 
 
     @Override

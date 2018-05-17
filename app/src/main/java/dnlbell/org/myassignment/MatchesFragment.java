@@ -18,13 +18,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
+import dnlbell.org.myassignment.Model.Match;
+
 public class MatchesFragment extends Fragment {
+
+    private MatchesViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+
+        if(savedInstanceState == null) {
+            viewModel = new MatchesViewModel();
+        }
+
+
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -66,7 +79,7 @@ public class MatchesFragment extends Fragment {
 
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
-        private static final int LENGTH = 18;
+        private static final int LENGTH = 3;
         private final String[] mMatches;
         private final String[] mMatchDesc;
         private final Drawable[] mPlacePictures;
