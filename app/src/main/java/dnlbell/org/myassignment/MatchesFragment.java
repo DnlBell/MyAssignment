@@ -89,12 +89,11 @@ public class MatchesFragment extends Fragment {
         private final String[] mName;
         private final Boolean[] mLiked;
 
-        public ContentAdapter(Context context, ) {
-            Resources resources = context.getResources();
-            mUrl = resources.getStringArray(R.array.match);
-            mName = resources.getStringArray(R.array.match_desc);
-            mLiked
-            a.recycle();
+        public ContentAdapter(Context context, String[] urls, String[] names, Boolean[] likes) {
+            mUrl = urls;
+            mName = names;
+            mLiked = likes;
+            //a.recycle();
         }
 
         @Override
@@ -106,7 +105,15 @@ public class MatchesFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             //setup picture
             holder.name.setText(mName[position % mName.length]);
-            //holder.picture.setImageBitmap();
+
+            try {
+                holder.picture.setImageBitmap(drawable_from_url(mUrl[position % mUrl.length]));
+            }
+            catch (IOException e){
+            }
+            if(mLiked[position % mLiked.length]){
+                holder.likeButton.setColorFilter(R.color.red);
+            }
         }
 
         @Override
@@ -114,7 +121,7 @@ public class MatchesFragment extends Fragment {
             return LENGTH;
         }
 
-        Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
+        Bitmap drawable_from_url(String url) throws java.io.IOException {
 
             HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
             connection.setRequestProperty("User-agent","Mozilla/4.0");
