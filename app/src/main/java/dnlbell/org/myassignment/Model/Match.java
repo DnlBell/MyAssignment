@@ -12,7 +12,7 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Match implements Parcelable {
 
-    public String matchId;
+    public String uid;
     public String matchImageURL;
     public String named;
     public Boolean liked;
@@ -22,7 +22,7 @@ public class Match implements Parcelable {
     }
 
     public Match (String mId, String mURL, String mNamed, Boolean mLiked){
-        this.matchId = mId;
+        this.uid = mId;
         this.matchImageURL = mURL;
         this.named = mNamed;
         this.liked = mLiked;
@@ -32,7 +32,7 @@ public class Match implements Parcelable {
         matchImageURL = in.readString();
         liked = in.readByte() != 0;
         named = in.readString();
-        matchId = in.readString();
+        uid = in.readString();
 
     }
 
@@ -52,7 +52,7 @@ public class Match implements Parcelable {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("matchId", matchId);
+        result.put("matchId", uid);
         result.put("named", named);
         result.put("liked", liked);
         result.put("matchImageURL", matchImageURL);
@@ -71,6 +71,6 @@ public class Match implements Parcelable {
         dest.writeString(matchImageURL);
         dest.writeByte((byte) (liked ? 1 : 0));
         dest.writeString(named);
-        dest.writeString(matchId);
+        dest.writeString(uid);
     }
 }

@@ -45,7 +45,7 @@ public class FirebaseMatchModel {
 
     public void updateMatchById(Match match) {
         DatabaseReference matchesRef = mDatabase.child("matches");
-        matchesRef.child(match.matchId).setValue(match);
+        matchesRef.child(match.uid).setValue(match);
     }
 
     public void clear() {

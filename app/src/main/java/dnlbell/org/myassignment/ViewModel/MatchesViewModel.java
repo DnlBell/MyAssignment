@@ -27,7 +27,7 @@ public class MatchesViewModel {
                     for(DataSnapshot matchSnapshot : dataSnapshot.getChildren()) {
                         Match match = matchSnapshot.getValue(Match.class);
                         assert match != null;
-                        match.matchId = matchSnapshot.getKey();
+                        match.uid = matchSnapshot.getKey();
                         matches.add(match);
                     }
                     responseCallback.accept(matches);
