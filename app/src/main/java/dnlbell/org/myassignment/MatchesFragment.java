@@ -25,12 +25,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
+import dnlbell.org.myassignment.Model.Match;
 
 public class MatchesFragment extends Fragment {
 
-    private MatchesViewModel viewModel;
+    private MatchesViewModel viewModel = new MatchesViewModel();
+    private ArrayList<Match> myMatches = new ArrayList<>();
 
     @Nullable
     @Override
@@ -38,15 +41,18 @@ public class MatchesFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
-        if(savedInstanceState == null) {
-            viewModel = new MatchesViewModel();
-        }
+        viewModel.getMatches(
+                (ArrayList<Match> matches) -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("matches", matches);
+                    ContentAdapter adapter = new ContentAdapter(bundle);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+                }
 
-        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        );
         return recyclerView;
     }
 
@@ -84,15 +90,12 @@ public class MatchesFragment extends Fragment {
 
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
-        private static final int LENGTH = 3;
-        private final String[] mUrl;
-        private final String[] mName;
-        private final Boolean[] mLiked;
+        private static final int LENGTH = 6;
+        private ArrayList<Match> myMatches;
 
-        public ContentAdapter(Context context, String[] urls, String[] names, Boolean[] likes) {
-            mUrl = urls;
-            mName = names;
-            mLiked = likes;
+        public ContentAdapter(Bundle matches) {
+
+            myMatches = matches.getParcelableArrayList("matches");
             //a.recycle();
         }
 
@@ -104,14 +107,14 @@ public class MatchesFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             //setup picture
-            holder.name.setText(mName[position % mName.length]);
+            holder.name.setText(myMatches.get(position).named);
 
             try {
-                holder.picture.setImageBitmap(drawable_from_url(mUrl[position % mUrl.length]));
+                holder.picture.setImageBitmap(drawable_from_url(myMatches.get(position).matchImageURL));
             }
             catch (IOException e){
             }
-            if(mLiked[position % mLiked.length]){
+            if(myMatches.get(position).liked){
                 holder.likeButton.setColorFilter(R.color.red);
             }
         }
