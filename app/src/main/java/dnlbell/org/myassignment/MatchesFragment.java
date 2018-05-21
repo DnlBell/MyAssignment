@@ -22,7 +22,7 @@ import dnlbell.org.myassignment.Model.Match;
 
 public class MatchesFragment extends Fragment {
 
-    private MatchesViewModel viewModel = new MatchesViewModel();
+    private static MatchesViewModel viewModel = new MatchesViewModel();
 
     @Nullable
     @Override
@@ -72,6 +72,8 @@ public class MatchesFragment extends Fragment {
                     toast.show();
 
                     likeButton.setColorFilter(ContextCompat.getColor(context, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
+                    match.liked = true;
+                    viewModel.updateMatch(match);
                 }
 
             });
