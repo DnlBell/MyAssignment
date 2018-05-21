@@ -53,7 +53,6 @@
             android:id="@+id/like_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="@color/dark_grey"
             android:layout_marginEnd="@dimen/defaultMargin"
             android:layout_marginRight="@dimen/defaultMargin"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,12 +1,6 @@
 package dnlbell.org.myassignment;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
@@ -20,11 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
@@ -33,7 +23,6 @@ import dnlbell.org.myassignment.Model.Match;
 public class MatchesFragment extends Fragment {
 
     private MatchesViewModel viewModel = new MatchesViewModel();
-    private ArrayList<Match> myMatches = new ArrayList<>();
 
     @Nullable
     @Override
@@ -41,18 +30,20 @@ public class MatchesFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
+        Bundle bundle = new Bundle();
         viewModel.getMatches(
                 (ArrayList<Match> matches) -> {
-                    Bundle bundle = new Bundle();
+
                     bundle.putParcelableArrayList("matches", matches);
                     ContentAdapter adapter = new ContentAdapter(bundle);
                     recyclerView.setAdapter(adapter);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
                 }
 
         );
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return recyclerView;
     }
 
@@ -61,6 +52,7 @@ public class MatchesFragment extends Fragment {
         public TextView name;
         public TextView description;
         public ImageButton likeButton;
+        public Match match;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_card, parent, false));
@@ -73,8 +65,7 @@ public class MatchesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    CharSequence text = "You Liked " +
-                    new StringBuilder().append(name.getText()).append("!").toString();
+                    CharSequence text = "You Liked " + new StringBuilder().append(name.getText()).append("!").toString();
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);
@@ -107,33 +98,23 @@ public class MatchesFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             //setup picture
-            holder.name.setText(myMatches.get(position).named);
-
-            try {
-                holder.picture.setImageBitmap(drawable_from_url(myMatches.get(position).matchImageURL));
-            }
-            catch (IOException e){
-            }
-            if(myMatches.get(position).liked){
+            holder.match = myMatches.get(position);
+            String url = holder.match.imageUrl;
+            Picasso.get().load(url).into(holder.picture);
+            holder.name.setText(holder.match.name);
+            boolean liked = holder.match.liked;
+            if (liked) {
                 holder.likeButton.setColorFilter(R.color.red);
+            }else{
+                holder.likeButton.setColorFilter(R.color.dark_grey);
             }
         }
+
 
         @Override
         public int getItemCount() {
             return LENGTH;
         }
-
-        Bitmap drawable_from_url(String url) throws java.io.IOException {
-
-            HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
-            connection.setRequestProperty("User-agent","Mozilla/4.0");
-
-            connection.connect();
-            InputStream input = connection.getInputStream();
-
-            return BitmapFactory.decodeStream(input);
-        }
-
     }
 }
+
