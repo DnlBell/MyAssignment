@@ -31,4 +31,5 @@
     <string name="to">To</string>
     <string name="set_profile_to_private">Set profile to private.</string>
     <string name="reminder_time">Reminder Time</string>
+    <string name="invalidRange">Invalid age range</string>
 </resources>

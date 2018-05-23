@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import dnlbell.org.myassignment.Entity.Settings;
 
@@ -18,8 +20,10 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    public static Spinner hour, minute, meridiem, radius, sexuality, gender, rangeLow,rangeHigh;
-    public static Switch privacy;
+    public Spinner hour, minute, meridiem, radius, sexuality, gender, rangeLow,rangeHigh;
+    public Switch privacy;
+    public Button save;
+    public TextView settingsError;
 
 
     @Nullable
@@ -36,6 +40,24 @@ public class SettingsFragment extends Fragment {
         rangeLow = SettingsView.findViewById(R.id.rangeLow);
         rangeHigh = SettingsView.findViewById(R.id.rangeHigh);
         privacy = SettingsView.findViewById(R.id.privacy);
+        save = SettingsView.findViewById(R.id.save);
+        settingsError = SettingsView.findViewById(R.id.settingsError);
+
+        save.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                int low = getIntValue(rangeLow);
+                int high = getIntValue(rangeHigh);
+
+                if(low < high) {
+                    settingsError.setText("");
+                    updateDatabase(v);
+                }else {
+                    settingsError.setText(R.string.invalidRange);
+                }
+            }
+        });
 
         new GetSettings(this,0).execute();
 
@@ -139,17 +161,15 @@ public class SettingsFragment extends Fragment {
             if(settings == null || fragment == null) {
                 return;
             }
-
-            fragment.hour.setSelection(getIndex(hour,settings.getHour()));
-            fragment.minute.setSelection(getIndex(minute,settings.getMinute()));
+            fragment.hour.setSelection(getIndex(fragment.hour,settings.getHour()));
+            fragment.minute.setSelection(getIndex(fragment.minute,settings.getMinute()));
             fragment.meridiem.setSelected(settings.isMeridiem());
-            fragment.radius.setSelection(getIndex(radius,settings.getRadius()));
-            fragment.sexuality.setSelection(getIndex(sexuality,settings.getSexuality()));
-            fragment.gender.setSelection(getIndex(gender,settings.getGender()));
-            fragment.rangeLow.setSelection(getIndex(rangeLow,settings.getRangeLow()));
-            fragment.rangeHigh.setSelection(getIndex(rangeHigh,settings.getRangeHigh()));
+            fragment.radius.setSelection(getIndex(fragment.meridiem,settings.getRadius()));
+            fragment.sexuality.setSelection(getIndex( fragment.sexuality,settings.getSexuality()));
+            fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
+            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,settings.getRangeLow()));
+            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,settings.getRangeHigh()));
             fragment.privacy.setSelected(settings.isPrivacy());
-
         }
     }
 
@@ -182,14 +202,14 @@ public class SettingsFragment extends Fragment {
                 return;
             }
 
-            fragment.hour.setSelection(getIndex(hour,settings.getHour()));
-            fragment.minute.setSelection(getIndex(minute,settings.getMinute()));
+            fragment.hour.setSelection(getIndex(fragment.hour,settings.getHour()));
+            fragment.minute.setSelection(getIndex(fragment.minute,settings.getMinute()));
             fragment.meridiem.setSelected(settings.isMeridiem());
-            fragment.radius.setSelection(getIndex(radius,settings.getRadius()));
-            fragment.sexuality.setSelection(getIndex(sexuality,settings.getSexuality()));
-            fragment.gender.setSelection(getIndex(gender,settings.getGender()));
-            fragment.rangeLow.setSelection(getIndex(rangeLow,settings.getRangeLow()));
-            fragment.rangeHigh.setSelection(getIndex(rangeHigh,settings.getRangeHigh()));
+            fragment.radius.setSelection(getIndex(fragment.meridiem,settings.getRadius()));
+            fragment.sexuality.setSelection(getIndex( fragment.sexuality,settings.getSexuality()));
+            fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
+            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,settings.getRangeLow()));
+            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,settings.getRangeHigh()));
             fragment.privacy.setSelected(settings.isPrivacy());
 
         }
