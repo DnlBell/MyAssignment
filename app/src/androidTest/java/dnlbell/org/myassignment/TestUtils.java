@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 public class TestUtils {
 
@@ -84,6 +85,25 @@ public class TestUtils {
             public void perform(UiController uiController, View view) {
                 View v = view.findViewById(id);
                 v.performClick();
+            }
+        };
+    }
+
+    public static ViewAction waitFor(final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Wait for " + millis + " milliseconds.";
+            }
+
+            @Override
+            public void perform(UiController uiController, final View view) {
+                uiController.loopMainThreadForAtLeast(millis);
             }
         };
     }

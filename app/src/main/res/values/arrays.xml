@@ -48,7 +48,6 @@
         <item>31</item>
     </string-array>
     <string-array name="hours">
-        <item>-</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -63,14 +62,12 @@
         <item>12</item>
     </string-array>
     <string-array name="minutes">
-        <item>-</item>
         <item>00</item>
         <item>15</item>
         <item>30</item>
         <item>45</item>
     </string-array>
     <string-array name="meridiem">
-        <item>-</item>
         <item>AM</item>
         <item>PM</item>
     </string-array>

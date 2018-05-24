@@ -21,10 +21,13 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static dnlbell.org.myassignment.TestUtils.rotateScreen;
+import static dnlbell.org.myassignment.TestUtils.waitFor;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+
 
 
 //import static android.support.test.espresso.action.ViewActions.scrollTo;
@@ -167,4 +170,39 @@ public class myTests {
         //onView(withText("You liked Jane Doe!").inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
     }
+
+    @Test
+    public void saveSettings(){
+        submitGoodData();
+
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.hour)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(2).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.minute)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(2).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.meridiem)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(1).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.radius)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(2).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.sexuality)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(3).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId(R.id.gender)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).atPosition(3).perform(click());
+
+        onView(withId(R.id.save)).perform(click());
+    }
+
 }
