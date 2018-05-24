@@ -2,6 +2,7 @@ package dnlbell.org.myassignment;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,7 +32,7 @@ public class SettingsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View SettingsView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         hour = SettingsView.findViewById(R.id.hour);
@@ -54,19 +55,16 @@ public class SettingsFragment extends Fragment {
         rangeLow.setAdapter(integerArrayAdapter);
 
 
-        save.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        save.setOnClickListener(v -> {
 
-                int low = getIntValue(rangeLow);
-                int high = getIntValue(rangeHigh);
+            int low = getIntValue(rangeLow);
+            int high = getIntValue(rangeHigh);
 
-                if(low <= high) {
-                    settingsError.setText("");
-                    updateDatabase(v);
-                }else {
-                    settingsError.setText(R.string.invalidRange);
-                }
+            if(low <= high) {
+                settingsError.setText("");
+                updateDatabase(v);
+            }else {
+                settingsError.setText(R.string.invalidRange);
             }
         });
 
@@ -86,11 +84,7 @@ public class SettingsFragment extends Fragment {
         int rangeHigh = Integer.parseInt(this.rangeHigh.getSelectedItem().toString());
 
         boolean meridiem;
-        if (this.meridiem.getSelectedItem().toString() == "PM") {
-            meridiem = true;
-        }else {
-            meridiem = false;
-        }
+        meridiem = this.meridiem.getSelectedItem().toString().equals("PM");
         boolean privacy = this.privacy.isChecked();
 
         String sexuality = (String) this.sexuality.getSelectedItem();
@@ -131,13 +125,11 @@ public class SettingsFragment extends Fragment {
     }
 
     public static int getIntValue(Spinner mySpinner) {
-        int value = (int) mySpinner.getSelectedItem();
-        return value;
+        return (int) mySpinner.getSelectedItem();
     }
 
     public static String getStringValue(Spinner mySpinner) {
-        String value = mySpinner.getSelectedItem().toString();
-        return value;
+        return mySpinner.getSelectedItem().toString();
     }
 
     public static  ArrayList<Integer> getAges(int max, int min){
@@ -153,7 +145,7 @@ public class SettingsFragment extends Fragment {
         private WeakReference<Fragment> weakFragment;
         private int id;
 
-        public GetSettings(Fragment fragment, int id){
+        GetSettings(Fragment fragment, int id){
             weakFragment = new WeakReference<>(fragment);
             this.id = id;
         }
@@ -182,14 +174,14 @@ public class SettingsFragment extends Fragment {
             if(settings == null || fragment == null) {
                 return;
             }
-            fragment.hour.setSelection(getIndex(fragment.hour,settings.getHour()));
-            fragment.minute.setSelection(getIndex(fragment.minute,settings.getMinute()));
+            fragment.hour.setSelection(getIndex(fragment.hour,String.valueOf(settings.getHour())));
+            fragment.minute.setSelection(getIndex(fragment.minute,String.valueOf(settings.getMinute())));
             fragment.meridiem.setSelected(settings.isMeridiem());
-            fragment.radius.setSelection(getIndex(fragment.meridiem,settings.getRadius()));
+            fragment.radius.setSelection(getIndex(fragment.radius,String.valueOf(settings.getRadius())));
             fragment.sexuality.setSelection(getIndex( fragment.sexuality,settings.getSexuality()));
             fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
-            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,settings.getRangeLow()));
-            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,settings.getRangeHigh()));
+            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,String.valueOf(settings.getRangeLow())));
+            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,String.valueOf(settings.getRangeHigh())));
             fragment.privacy.setSelected(settings.isPrivacy());
         }
     }
@@ -198,7 +190,7 @@ public class SettingsFragment extends Fragment {
         private WeakReference<Fragment> weakFragment;
         private Settings settings;
 
-        public UpdateSettings(Fragment fragment, Settings settings) {
+        UpdateSettings(Fragment fragment, Settings settings) {
             weakFragment = new WeakReference<>(fragment);
             this.settings = settings;
         }
@@ -223,14 +215,14 @@ public class SettingsFragment extends Fragment {
                 return;
             }
 
-            fragment.hour.setSelection(getIndex(fragment.hour,settings.getHour()));
-            fragment.minute.setSelection(getIndex(fragment.minute,settings.getMinute()));
+            fragment.hour.setSelection(getIndex(fragment.hour,String.valueOf(settings.getHour())));
+            fragment.minute.setSelection(getIndex(fragment.minute,String.valueOf(settings.getMinute())));
             fragment.meridiem.setSelected(settings.isMeridiem());
-            fragment.radius.setSelection(getIndex(fragment.meridiem,settings.getRadius()));
+            fragment.radius.setSelection(getIndex(fragment.radius,String.valueOf(settings.getRadius())));
             fragment.sexuality.setSelection(getIndex( fragment.sexuality,settings.getSexuality()));
             fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
-            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,settings.getRangeLow()));
-            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,settings.getRangeHigh()));
+            fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,String.valueOf(settings.getRangeLow())));
+            fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,String.valueOf(settings.getRangeHigh())));
             fragment.privacy.setSelected(settings.isPrivacy());
 
         }
