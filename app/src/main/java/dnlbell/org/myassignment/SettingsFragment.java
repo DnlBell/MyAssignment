@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        new GetSettings(this).execute();
+        new GetSettings(this,0 ).execute();
 
         return SettingsView;
     }
@@ -142,10 +142,12 @@ public class SettingsFragment extends Fragment {
 
     private static class GetSettings extends AsyncTask<Void, Void, Settings> {
         private WeakReference<Fragment> weakFragment;
+        private int id;
 
 
-        GetSettings(Fragment fragment){
+        GetSettings(Fragment fragment, int settingsId){
             weakFragment = new WeakReference<>(fragment);
+            this.id = settingsId;
         }
 
         @Override
@@ -157,7 +159,7 @@ public class SettingsFragment extends Fragment {
 
             AppDb db = AppDbSingleton.getDatabase(fragment.getContext());
 
-            List<Settings> settings = db.settingsDao().getSettings();
+            List<Settings> settings = db.settingsDao().getSettingsById(id);
 
             if(settings.size() <= 0 || settings.get(0) == null){
                 return null;
@@ -202,7 +204,7 @@ public class SettingsFragment extends Fragment {
 
             AppDb db = AppDbSingleton.getDatabase(fragment.getContext());
 
-            db.settingsDao().updateSettings(settings);
+            db.settingsDao().insertAll(settings);
             return settings;
         }
 

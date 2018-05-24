@@ -13,8 +13,8 @@ import java.util.List;
 
 @Dao
 public interface settingsDao {
-    @Query( "SELECT * FROM Settings")
-    List<Settings> getSettings();
+    @Query( "SELECT * FROM Settings WHERE id = :mId")
+    List<Settings> getSettingsById(int mId);
 
     @Update
     void updateSettings(Settings... settings);
