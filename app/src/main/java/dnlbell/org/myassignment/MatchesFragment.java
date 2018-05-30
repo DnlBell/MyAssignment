@@ -42,35 +42,34 @@ public class MatchesFragment extends Fragment {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if(isLocationEnabled()) {
 
-            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationlistenNetwork);
-            }
-            myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Bundle bundle = new Bundle();
-            viewModel.getMatches(
-                    (ArrayList<Match> matches) -> {
-                        ArrayList<Match> inMatches = new ArrayList<>();
-                        for (int i = 0; i < matches.size(); ++i) {
-                            double matchLat = Double.parseDouble(matches.get(i).lat);
-                            double matchLon = Double.parseDouble(matches.get(i).longitude);
-                            double netLat = myLocation.getLatitude();
-                            double netLong = myLocation.getLongitude();
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 60 * 1000, 10, locationlistenNetwork);
+                myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Bundle bundle = new Bundle();
+                viewModel.getMatches(
+                        (ArrayList<Match> matches) -> {
+                            ArrayList<Match> inMatches = new ArrayList<>();
+                            for (int i = 0; i < matches.size(); ++i) {
+                                double matchLat = Double.parseDouble(matches.get(i).lat);
+                                double matchLon = Double.parseDouble(matches.get(i).longitude);
+                                double netLat = myLocation.getLatitude();
+                                double netLong = myLocation.getLongitude();
 
-                            double distance = distFrom(matchLat, matchLon, netLat, netLong);
-                            if (distance <= 10) {
-                                inMatches.add(matches.get(i));
+                                double distance = distFrom(matchLat, matchLon, netLat, netLong);
+                                if (distance <= 10) {
+                                    inMatches.add(matches.get(i));
+                                }
                             }
+
+                            bundle.putParcelableArrayList("matches", inMatches);
+                            ContentAdapter adapter = new ContentAdapter(bundle);
+                            recyclerView.setAdapter(adapter);
+
                         }
 
-                        bundle.putParcelableArrayList("matches", inMatches);
-                        ContentAdapter adapter = new ContentAdapter(bundle);
-                        recyclerView.setAdapter(adapter);
-
-                    }
-
-            );
-
+                );
+            }
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             return recyclerView;
