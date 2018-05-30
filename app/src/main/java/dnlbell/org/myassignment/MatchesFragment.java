@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import android.location.LocationManager;
 
 import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
 import dnlbell.org.myassignment.Model.Match;
@@ -33,6 +34,12 @@ public class MatchesFragment extends Fragment {
         Bundle bundle = new Bundle();
         viewModel.getMatches(
                 (ArrayList<Match> matches) -> {
+
+                    for(int i = 0; i < matches.size(); ++i){
+                        double matchLat = Double.parseDouble(matches.get(i).lat);
+                        double matchLon = Double.parseDouble(matches.get(i).longitude);
+
+                    }
 
                     bundle.putParcelableArrayList("matches", matches);
                     ContentAdapter adapter = new ContentAdapter(bundle);

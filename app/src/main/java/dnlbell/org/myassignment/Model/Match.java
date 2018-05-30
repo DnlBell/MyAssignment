@@ -10,6 +10,8 @@ public class Match implements Parcelable {
     public String imageUrl;
     public String name;
     public boolean liked;
+    public String lat;
+    public String longitude;
 
     public Match() {
 
@@ -38,7 +40,9 @@ public class Match implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(imageUrl);
+        dest.writeString(lat);
         dest.writeByte((byte) (liked ? 1 : 0));
+        dest.writeString(longitude);
         dest.writeString(name);
         dest.writeString(uid);
     }
