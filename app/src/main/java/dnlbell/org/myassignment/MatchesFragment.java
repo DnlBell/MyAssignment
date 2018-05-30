@@ -1,6 +1,5 @@
 package dnlbell.org.myassignment;
 
-import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import android.location.LocationManager;
 import android.location.LocationListener;
 import android.location.Location;
-import android.provider.Settings;
 import android.content.pm.PackageManager;
 
 
@@ -41,40 +39,56 @@ public class MatchesFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
-        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if(isLocationEnabled()) {
 
-        if(ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationlistenNetwork);
-        }
-        myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Bundle bundle = new Bundle();
-        viewModel.getMatches(
-                (ArrayList<Match> matches) -> {
-                    ArrayList<Match> inMatches = new ArrayList<>();
-                    for(int i = 0; i < matches.size(); ++i){
-                        double matchLat = Double.parseDouble(matches.get(i).lat);
-                        double matchLon = Double.parseDouble(matches.get(i).longitude);
-                        double netLat = myLocation.getLatitude();
-                        double netLong = myLocation.getLongitude();
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationlistenNetwork);
+            }
+            myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Bundle bundle = new Bundle();
+            viewModel.getMatches(
+                    (ArrayList<Match> matches) -> {
+                        ArrayList<Match> inMatches = new ArrayList<>();
+                        for (int i = 0; i < matches.size(); ++i) {
+                            double matchLat = Double.parseDouble(matches.get(i).lat);
+                            double matchLon = Double.parseDouble(matches.get(i).longitude);
+                            double netLat = myLocation.getLatitude();
+                            double netLong = myLocation.getLongitude();
 
-                        double distance = distFrom(matchLat,matchLon,netLat,netLong);
-                        if(distance <= 10 ){
-                            inMatches.add(matches.get(i));
+                            double distance = distFrom(matchLat, matchLon, netLat, netLong);
+                            if (distance <= 10) {
+                                inMatches.add(matches.get(i));
+                            }
                         }
+
+                        bundle.putParcelableArrayList("matches", inMatches);
+                        ContentAdapter adapter = new ContentAdapter(bundle);
+                        recyclerView.setAdapter(adapter);
+
                     }
 
-                    bundle.putParcelableArrayList("matches", inMatches);
-                    ContentAdapter adapter = new ContentAdapter(bundle);
-                    recyclerView.setAdapter(adapter);
+            );
 
-                }
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            return recyclerView;
 
-        );
+        } else {
+            Bundle bundle = new Bundle();
+            viewModel.getMatches(
+                    (ArrayList<Match> matches) -> {
+                        bundle.putParcelableArrayList("matches", matches);
+                        ContentAdapter adapter = new ContentAdapter(bundle);
+                        recyclerView.setAdapter(adapter);
+                    }
+            );
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        return recyclerView;
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            return recyclerView;
+        }
     }
 
 
@@ -114,12 +128,13 @@ public class MatchesFragment extends Fragment {
 
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
-        private static final int LENGTH = 6;
+        private static int length;
         private ArrayList<Match> myMatches;
 
         public ContentAdapter(Bundle matches) {
 
             myMatches = matches.getParcelableArrayList("matches");
+            length = myMatches.size();
             //a.recycle();
         }
 
@@ -131,27 +146,29 @@ public class MatchesFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             //setup picture
-            holder.match = myMatches.get(position);
-            String url = holder.match.imageUrl;
-            Picasso.get().load(url).into(holder.picture);
-            holder.name.setText(holder.match.name);
-            boolean liked = holder.match.liked;
-            if (liked) {
-                holder.likeButton.setColorFilter(R.color.red);
-            }else{
-                holder.likeButton.setColorFilter(R.color.dark_grey);
+            if(myMatches.size() != 0) {
+                holder.match = myMatches.get(position);
+                String url = holder.match.imageUrl;
+                Picasso.get().load(url).into(holder.picture);
+                holder.name.setText(holder.match.name);
+                boolean liked = holder.match.liked;
+                if (liked) {
+                    holder.likeButton.setColorFilter(R.color.red);
+                } else {
+                    holder.likeButton.setColorFilter(R.color.dark_grey);
+                }
             }
         }
 
 
         @Override
         public int getItemCount() {
-            return LENGTH;
+            return length;
         }
     }
 
     private boolean isLocationEnabled() {
-        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private final LocationListener locationlistenNetwork = new LocationListener() {
