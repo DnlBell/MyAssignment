@@ -62,6 +62,13 @@ public class MatchesFragment extends Fragment {
                                 }
                             }
 
+                            if(inMatches.size() == 0){
+                                inMatches = matches;
+                                CharSequence text = "No matches in range, defaulting to all matches";
+                                Toast toast = Toast.makeText(getActivity(),text,Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+
                             bundle.putParcelableArrayList("matches", inMatches);
                             ContentAdapter adapter = new ContentAdapter(bundle);
                             recyclerView.setAdapter(adapter);

@@ -167,9 +167,7 @@ public class myTests {
         onView(withId(R.id.submit)).perform(click());
         onView(withId(R.id.viewpager)).perform(swipeLeft());
 
-        //onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, TestUtils.clickChildViewWithId(R.id.like_button)));
-
-
+        onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, TestUtils.clickChildViewWithId(R.id.like_button)));
         //onView(withText("You liked Jane Doe!").inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
     }

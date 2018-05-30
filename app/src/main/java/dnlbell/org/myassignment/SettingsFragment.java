@@ -113,16 +113,6 @@ public class SettingsFragment extends Fragment {
         return 0;
     }
 
-    public static int getIndex(Spinner spinner, int myInt){
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).equals(myInt)){
-                return i;
-            }
-        }
-
-        return 0;
-    }
-
     public static int getIntValue(Spinner mySpinner) {
         return (int) mySpinner.getSelectedItem();
     }
@@ -182,7 +172,7 @@ public class SettingsFragment extends Fragment {
             fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
             fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,String.valueOf(settings.getRangeLow())));
             fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,String.valueOf(settings.getRangeHigh())));
-            fragment.privacy.setSelected(settings.isPrivacy());
+            fragment.privacy.setSelected(!settings.isPrivacy());
         }
     }
 
@@ -223,7 +213,7 @@ public class SettingsFragment extends Fragment {
             fragment.gender.setSelection(getIndex(fragment.gender,settings.getGender()));
             fragment.rangeLow.setSelection(getIndex(fragment.rangeLow,String.valueOf(settings.getRangeLow())));
             fragment.rangeHigh.setSelection(getIndex(fragment.rangeHigh,String.valueOf(settings.getRangeHigh())));
-            fragment.privacy.setSelected(settings.isPrivacy());
+            fragment.privacy.setSelected(!settings.isPrivacy());
 
         }
     }
