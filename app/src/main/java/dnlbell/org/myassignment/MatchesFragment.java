@@ -1,7 +1,9 @@
 package dnlbell.org.myassignment;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +19,11 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import android.location.LocationManager;
+import android.location.LocationListener;
+import android.location.Location;
+import android.provider.Settings;
+import android.content.pm.PackageManager;
+
 
 import dnlbell.org.myassignment.ViewModel.MatchesViewModel;
 import dnlbell.org.myassignment.Model.Match;
@@ -24,6 +31,9 @@ import dnlbell.org.myassignment.Model.Match;
 public class MatchesFragment extends Fragment {
 
     private static MatchesViewModel viewModel = new MatchesViewModel();
+    LocationManager locationManager;
+    Location myLocation;
+
 
     @Nullable
     @Override
@@ -31,17 +41,31 @@ public class MatchesFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
+        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if(ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationlistenNetwork);
+        }
+        myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         Bundle bundle = new Bundle();
         viewModel.getMatches(
                 (ArrayList<Match> matches) -> {
-
+                    int size =  matches.size();
+                    ArrayList<Match> inMatches = new ArrayList<>();
                     for(int i = 0; i < matches.size(); ++i){
                         double matchLat = Double.parseDouble(matches.get(i).lat);
                         double matchLon = Double.parseDouble(matches.get(i).longitude);
+                        double netLat = myLocation.getLatitude();
+                        double netLong = myLocation.getLongitude();
 
+                        double distance = distFrom(matchLat,matchLon,netLat,netLong);
+                        if(distance <= 10 ){
+                            inMatches.add(matches.get(i));
+                        }
                     }
 
-                    bundle.putParcelableArrayList("matches", matches);
+                    bundle.putParcelableArrayList("matches", inMatches);
                     ContentAdapter adapter = new ContentAdapter(bundle);
                     recyclerView.setAdapter(adapter);
 
@@ -53,6 +77,7 @@ public class MatchesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return recyclerView;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
@@ -125,5 +150,46 @@ public class MatchesFragment extends Fragment {
             return LENGTH;
         }
     }
+
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private final LocationListener locationlistenNetwork = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            myLocation = location;
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+    public static double distFrom(double lat1, double lng1, double lat2, double lng2) {
+        double earthRadius = 3958.75; // miles (or 6371.0 kilometers)
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double dist = earthRadius * c;
+
+        return dist;
+    }
+
 }
 
