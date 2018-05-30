@@ -51,7 +51,6 @@ public class MatchesFragment extends Fragment {
         Bundle bundle = new Bundle();
         viewModel.getMatches(
                 (ArrayList<Match> matches) -> {
-                    int size =  matches.size();
                     ArrayList<Match> inMatches = new ArrayList<>();
                     for(int i = 0; i < matches.size(); ++i){
                         double matchLat = Double.parseDouble(matches.get(i).lat);
